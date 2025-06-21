@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Python Web AI 开发教程</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="从零开始的 Python Web AI 开发完整教程">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.css">
+  <style>
+    .markdown-section {
+      max-width: 1200px;
+    }
+    .sidebar {
+      background-color: #f8f9fa;
+    }
+    .sidebar-nav {
+      padding: 0;
+    }
+    .sidebar-nav li {
+      margin: 0;
+    }
+    .sidebar-nav a {
+      color: #333;
+      border-bottom: none;
+      padding: 8px 15px;
+    }
+    .sidebar-nav a:hover {
+      background-color: #e9ecef;
+    }
+    .app-nav {
+      background-color: #2c3e50;
+    }
+    .app-nav a {
+      color: white;
+    }
+    .app-nav a:hover {
+      color: #42b983;
+    }
+    .cover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .cover .cover-main {
+      text-align: center;
+    }
+    .cover .cover-main h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    .cover .cover-main p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+    .cover .cover-main .btn {
+      background-color: #42b983;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1em;
+      margin: 10px;
+    }
+    .cover .cover-main .btn:hover {
+      background-color: #3aa876;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'Python Web AI 开发教程',
+      repo: 'https://github.com/lizhogn/python-webAI-tutorial',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索文档...',
+        noData: '找不到结果',
+        depth: 6
+      },
+      copyCode: {
+        buttonText: '复制',
+        errorText: '错误',
+        successText: '已复制'
+      },
+      pagination: {
+        previousText: '上一章',
+        nextText: '下一章',
+        crossChapter: true,
+        crossChapterText: true
+      },
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            var url = 'https://github.com/lizhogn/python-webAI-tutorial/blob/main/docs/' + vm.route.file;
+            var editHtml = '[:memo: 编辑此页](' + url + ')\n';
+            return editHtml + html;
+          });
+        }
+      ]
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+</body>
+</html> 

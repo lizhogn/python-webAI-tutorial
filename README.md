@@ -2,10 +2,10 @@
 
 > 📚 从零开始的 Python Web AI 开发完整教程
 
-[![GitHub stars](https://img.shields.io/github/stars/your-username/python-web-ai-tutorial.svg?style=social&label=Star)](https://github.com/your-username/python-web-ai-tutorial)
-[![GitHub forks](https://img.shields.io/github/forks/your-username/python-web-ai-tutorial.svg?style=social&label=Fork)](https://github.com/your-username/python-web-ai-tutorial)
-[![GitHub issues](https://img.shields.io/github/issues/your-username/python-web-ai-tutorial.svg)](https://github.com/your-username/python-web-ai-tutorial/issues)
-[![GitHub license](https://img.shields.io/github/license/your-username/python-web-ai-tutorial.svg)](https://github.com/your-username/python-web-ai-tutorial/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/lizhogn/python-webAI-tutorial.svg?style=social&label=Star)](https://github.com/lizhogn/python-webAI-tutorial)
+[![GitHub forks](https://img.shields.io/github/forks/lizhogn/python-webAI-tutorial.svg?style=social&label=Fork)](https://github.com/lizhogn/python-webAI-tutorial)
+[![GitHub issues](https://img.shields.io/github/issues/lizhogn/python-webAI-tutorial.svg)](https://github.com/lizhogn/python-webAI-tutorial/issues)
+[![GitHub license](https://img.shields.io/github/license/lizhogn/python-webAI-tutorial.svg)](https://github.com/lizhogn/python-webAI-tutorial/blob/main/LICENSE)
 
 ## 🎯 项目简介
 
@@ -58,8 +58,8 @@ docs/
 
 1. **克隆项目**
    ```bash
-   git clone https://github.com/your-username/python-web-ai-tutorial.git
-   cd python-web-ai-tutorial
+   git clone https://github.com/lizhogn/python-webAI-tutorial.git
+   cd python-webAI-tutorial
    ```
 
 2. **启动文档服务器**
@@ -207,7 +207,11 @@ pip install -r requirements.txt
 
 - 📧 Email: your-email@example.com
 - 💬 微信群: 扫描二维码加入
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/python-web-ai-tutorial/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/lizhogn/python-webAI-tutorial/issues)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lizhogn/python-webAI-tutorial&type=Date)](https://star-history.com/#lizhogn/python-webAI-tutorial&Date)
 
 ---
 

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI文本情感分析</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .main-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .result-card {
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .loading {
+            display: none;
+        }
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="main-container">
+                    <div class="text-center mb-4">
+                        <h1 class="display-4 text-primary">🤖 AI文本情感分析</h1>
+                        <p class="text-muted">输入文本，AI将分析其情感倾向</p>
+                    </div>
+
+                    <form id="predictionForm">
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">输入文本：</label>
+                            <textarea 
+                                class="form-control" 
+                                id="textInput" 
+                                rows="4" 
+                                placeholder="请输入要分析的文本内容..."
+                                required
+                            ></textarea>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                <span class="btn-text">开始分析</span>
+                                <span class="loading">
+                                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    分析中...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="resultContainer" class="mt-4" style="display: none;">
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">分析结果</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>情感倾向：</h6>
+                                        <span id="prediction" class="badge fs-6"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>置信度：</h6>
+                                        <div class="progress">
+                                            <div id="confidenceBar" class="progress-bar" role="progressbar"></div>
+                                        </div>
+                                        <small id="confidenceText" class="text-muted"></small>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6>模型信息：</h6>
+                                        <small id="modelInfo" class="text-muted"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="errorContainer" class="mt-4" style="display: none;">
+                        <div class="alert alert-danger" role="alert">
+                            <h6>分析失败</h6>
+                            <p id="errorMessage" class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        
+        // 获取DOM元素
+        const form = document.getElementById('predictionForm');
+        const textInput = document.getElementById('textInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const loading = submitBtn.querySelector('.loading');
+        const resultContainer = document.getElementById('resultContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        
+        // 情感标签颜色映射
+        const sentimentColors = {
+            '正面': 'success',
+            '负面': 'danger',
+            '中性': 'secondary'
+        };
+        
+        // 表单提交处理
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const text = textInput.value.trim();
+            if (!text) {
+                showError('请输入文本内容');
+                return;
+            }
+            
+            // 显示加载状态
+            setLoading(true);
+            hideResults();
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || '请求失败');
+                }
+                
+                const result = await response.json();
+                showResult(result);
+                
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        });
+        
+        // 显示结果
+        function showResult(result) {
+            const prediction = document.getElementById('prediction');
+            const confidenceBar = document.getElementById('confidenceBar');
+            const confidenceText = document.getElementById('confidenceText');
+            const modelInfo = document.getElementById('modelInfo');
+            
+            // 设置情感标签
+            prediction.textContent = result.prediction;
+            prediction.className = `badge fs-6 bg-${sentimentColors[result.prediction] || 'primary'}`;
+            
+            // 设置置信度
+            const confidencePercent = Math.round(result.confidence * 100);
+            confidenceBar.style.width = `${confidencePercent}%`;
+            confidenceBar.textContent = `${confidencePercent}%`;
+            confidenceText.textContent = `置信度: ${confidencePercent}%`;
+            
+            // 设置模型信息
+            modelInfo.textContent = `模型版本: ${result.model_version}`;
+            
+            resultContainer.style.display = 'block';
+        }
+        
+        // 显示错误
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            errorContainer.style.display = 'block';
+        }
+        
+        // 隐藏结果
+        function hideResults() {
+            resultContainer.style.display = 'none';
+            errorContainer.style.display = 'none';
+        }
+        
+        // 设置加载状态
+        function setLoading(isLoading) {
+            if (isLoading) {
+                btnText.style.display = 'none';
+                loading.style.display = 'inline-block';
+                submitBtn.disabled = true;
+            } else {
+                btnText.style.display = 'inline-block';
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+        
+        // 页面加载时检查API状态
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                if (!response.ok) {
+                    console.warn('API服务可能未启动');
+                }
+            } catch (error) {
+                console.warn('无法连接到API服务，请确保后端服务已启动');
+            }
+        });
+    </script>
+</body>
+</html> 
