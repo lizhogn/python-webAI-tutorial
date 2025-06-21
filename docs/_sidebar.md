@@ -40,11 +40,11 @@
 * [5.5 实践项目](chapter5/5.5-practice-project.md)
 
 ### 第六章 实战项目
-* [6.1 项目架构](chapter6/6.1-architecture.md)
-* [6.2 开发流程](chapter6/6.2-development.md)
-* [6.3 测试策略](chapter6/6.3-testing.md)
-* [6.4 部署上线](chapter6/6.4-deployment.md)
-* [6.5 项目总结](chapter6/6.5-summary.md)
+* [6.1 项目概述](chapter6/6.1-project-overview.md)
+* [6.2 后端开发](chapter6/6.2-backend-development.md)
+* [6.3 前端开发](chapter6/6.3-frontend-development.md)
+* [6.4 部署与上线](chapter6/6.4-deployment-online.md)
+* [6.5 项目总结与展望](chapter6/6.5-summary-outlook.md)
 
 ## 🛠️ 工具与资源
 
@@ -54,6 +54,11 @@
 * [📚 学习资源](resources.md)
 * [❓ 常见问题](faq.md)
 * [⭐ Star History](star-history.md)
+* [🔧 常用开发工具](tools.md)
+* [⚡ 生产力提升插件](plugins.md)
+* [🤖 AI 相关工具](ai-tools.md)
+* [📦 开源项目推荐](open-source.md)
+* [📖 其他实用资源](others.md)
 
 ## 🔗 外部链接
 
